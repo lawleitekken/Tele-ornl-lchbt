@@ -44,8 +44,8 @@ PAGE_NO      = 1
 
 
 class MirrorStatus:
-    STATUS_UPLOADING   = "Upload"
-    STATUS_DOWNLOADING = "Download"
+    STATUS_UPLOADING   = "Uploading"
+    STATUS_DOWNLOADING = "Downloading"
     STATUS_CLONING     = "Clone"
     STATUS_QUEUEDL     = "QueueDL"
     STATUS_QUEUEUP     = "QueueUp"
@@ -53,6 +53,7 @@ class MirrorStatus:
     STATUS_ARCHIVING   = "Archive"
     STATUS_EXTRACTING  = "Extract"
     STATUS_SPLITTING   = "Split"
+    STATUS_METADATA    = "Adding Metadata"
     STATUS_CHECKING    = "CheckUp"
     STATUS_SEEDING     = "Seed"
 
@@ -352,8 +353,8 @@ def is_share_link(url):
     return bool(re_match(r'https?:\/\/.+\.gdtot\.\S+|https?:\/\/(.+\.filepress|filebee|appdrive|gdflix|www.jiodrive)\.\S+', url))
 
 
-def is_index_link(url): 
-     return bool(re_match(r'https?:\/\/.+\/\d+\:\/', url))    
+def is_index_link(url):
+     return bool(re_match(r'https?:\/\/.+\/\d+\:\/', url))
 
 
 def is_mega_link(url):
@@ -564,7 +565,7 @@ async def get_stats(event, key="home"):
         if await aiopath.exists('.git'):
             last_commit = (await cmd_exec("git log -1 --pretty='%cd ( %cr )' --date=format-local:'%d/%m/%Y'", True))[0]
             changelog = (await cmd_exec("git log -1 --pretty=format:'<code>%s</code> <b>By</b> %an'", True))[0]
-        official_v = (await cmd_exec(f"curl -o latestversion.py https://raw.githubusercontent.com/weebzone/WZML-X/{config_dict['UPSTREAM_BRANCH']}/bot/version.py -s && python3 latestversion.py && rm latestversion.py", True))[0]
+        official_v = (await cmd_exec("curl -o latestversion.py https://gitlab.com/mysterysd.sd/WZML-X/-/raw/hk_wzmlx/bot/version.py -s && python3 latestversion.py && rm latestversion.py", True))[0]
         msg = BotTheme('REPO_STATS',
             last_commit=last_commit,
             bot_version=get_version(),
