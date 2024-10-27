@@ -825,7 +825,7 @@ else:
             del qb_opt[k]
     qb_client.app_set_preferences(qb_opt)
 
-log_info("Creating client from BOT_TOKEN")
+log_info("Hey Creating client from BOT_TOKEN")
 bot = wztgClient('bot', TELEGRAM_API, TELEGRAM_HASH, bot_token=BOT_TOKEN, workers=1000,
                parse_mode=enums.ParseMode.HTML).start()
 bot_loop = bot.loop
